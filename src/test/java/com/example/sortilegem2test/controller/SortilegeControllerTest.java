@@ -14,6 +14,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(SortilegeController.class)
@@ -57,7 +58,8 @@ class SortilegeControllerTest {
         mockMvc.perform(post("/Sortilege/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dto)))
-                .andExpect(status().is(400));
+                .andExpect(status().is(400))
+                .andExpect(content().string("Sorcier existe pas"));
     }
 
 }
