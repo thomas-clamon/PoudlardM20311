@@ -25,17 +25,17 @@ public class SortilegeController {
     @PostMapping("create")
     public ResponseEntity ajouter (@RequestBody SortilegeDto body){
         if (body.getNom().length() > 60)
-            return new ResponseEntity("Nom est trop", HttpStatusCode.valueOf(400));
+            return new ResponseEntity("Nom trop long", HttpStatusCode.valueOf(400));
 
         // test du type
         try {
         TypeSort.valueOf(body.getType_sort());
         } catch (IllegalArgumentException exp){
-            new ResponseEntity("type incorrect", HttpStatusCode.valueOf(400));
+           return new ResponseEntity("type incorrect", HttpStatusCode.valueOf(400));
         }
 
         if (!service.exist(body.getId_sorcier())){
-            new ResponseEntity("Sorcier existe pas", HttpStatusCode.valueOf(400));
+           return new ResponseEntity("Sorcier existe pas", HttpStatusCode.valueOf(400));
         }
 
         sortilegeService.ajouter(sortilegeService.toEntity(body));

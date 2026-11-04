@@ -38,10 +38,11 @@ class SortilegeControllerTest {
         // on prepare un dto qui depasse 30 carathere sur le nom
         SortilegeDto dto = new SortilegeDto();
         dto.setNom("toto".repeat(70));
-        // access on appelle notre endpoit
+        // access on appelle notre endponit
         mockMvc.perform(post("/Sortilege/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(dto))).andExpect(status().is(400));
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().is(400));
     }
     @Test
     void should400_when_bad_sorcier() throws Exception {
@@ -55,7 +56,8 @@ class SortilegeControllerTest {
         Mockito.when(sorcierService.exist(ID)).thenReturn(false);
         mockMvc.perform(post("/Sortilege/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(dto))).andExpect(status().is(400));
+                .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().is(400));
     }
 
 }
