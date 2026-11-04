@@ -3,6 +3,7 @@ package com.example.sortilegem2test.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Sorciers")
@@ -21,6 +22,18 @@ public class SorcierEntity {
 
     @Column(name = "date_naissance", nullable = false)
     private LocalDate date_naissance;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sorcier_id")
+    private List<SortilegeEntity> list_sortilege;
+
+    public List<SortilegeEntity> getList_sortilege() {
+        return list_sortilege;
+    }
+
+    public void setList_sortilege(List<SortilegeEntity> list_sortilege) {
+        this.list_sortilege = list_sortilege;
+    }
 
     public MaisonEntity getMaison() {
         return maison;

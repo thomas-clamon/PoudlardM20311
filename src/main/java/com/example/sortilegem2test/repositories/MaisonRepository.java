@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MaisonRepository extends JpaRepository<MaisonEntity, Integer> {
+
 }

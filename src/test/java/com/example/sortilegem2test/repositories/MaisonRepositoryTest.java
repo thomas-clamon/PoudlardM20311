@@ -17,7 +17,7 @@ class MaisonRepositoryTest {
     private MaisonRepository repository;
 
     @Test
-    private void should_2_house_with_student(){
+    void should_2_house_with_student(){
 
         // arange par le script
 

@@ -2,10 +2,13 @@ package com.example.sortilegem2test.services;
 
 import com.example.sortilegem2test.dto.SorcierDto;
 import com.example.sortilegem2test.entities.SorcierEntity;
+import com.example.sortilegem2test.entities.SortilegeEntity;
+import com.example.sortilegem2test.enumation.TypeSort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Service
 public class SorcierService implements ISorcierService{
@@ -26,5 +29,36 @@ public class SorcierService implements ISorcierService{
         dto.setMaison(entity.getMaison().getNom());
 
         return dto;
+    }
+
+    @Override
+    public Integer nbPoint(SorcierEntity sorcier) {
+        // On recupere la liste de sort
+        List<SortilegeEntity> sorts = sorcier.getList_sortilege();
+
+        if (sorts.equals(null) || sorts.size() == 0)
+            return 0;
+        Integer nbPoint = 0;
+        for (int i = 0; i < sorts.size(); i++) {
+            TypeSort type_sort = TypeSort.valueOf(sorts.get(i).getType_sors());
+            switch (type_sort) {
+                case NOIR:
+                    nbPoint = nbPoint - 1;
+                    break;
+                case SOINS:
+                    nbPoint = nbPoint + 2;
+                    break;
+                case PROTECTION:
+                    nbPoint = nbPoint + 1;
+                    break;
+                case BLANCHE:
+                    nbPoint = nbPoint + 2;
+                    break;
+                case INTERDIT:
+                    nbPoint = nbPoint - 5;
+                    break;
+            }
+        }
+        return nbPoint;
     }
 }
