@@ -10,4 +10,6 @@ public interface ISorcierService {
 
     public Integer nbPoint(SorcierEntity sorcier);
 
+    public Boolean exist (Integer id);
+
 }

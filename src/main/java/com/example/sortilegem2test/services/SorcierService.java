@@ -4,6 +4,8 @@ import com.example.sortilegem2test.dto.SorcierDto;
 import com.example.sortilegem2test.entities.SorcierEntity;
 import com.example.sortilegem2test.entities.SortilegeEntity;
 import com.example.sortilegem2test.enumation.TypeSort;
+import com.example.sortilegem2test.repositories.SorcierRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,7 +13,11 @@ import java.time.Period;
 import java.util.List;
 
 @Service
-public class SorcierService implements ISorcierService{
+public class SorcierService implements ISorcierService {
+
+    @Autowired
+    SorcierRepository repository;
+
     @Override
     public SorcierDto toDto(SorcierEntity entity) {
         SorcierDto dto = new SorcierDto();
@@ -60,5 +66,10 @@ public class SorcierService implements ISorcierService{
             }
         }
         return nbPoint;
+    }
+
+    @Override
+    public Boolean exist(Integer id) {
+        return repository.existsById(id);
     }
 }
